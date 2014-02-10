@@ -22,11 +22,36 @@ class YouTubeChannel:
     self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
-    uploaded_videos = self.youtube_api.playlistItems().list(
+    videos = []
+
+    video_list_response = self.youtube_api.playlistItems().list(
         part="id,snippet,contentDetails",
         maxResults=max_results,
         playlistId=self.uploads_playlist,
         fields="items/id,items/snippet/title,items/snippet/description,items/contentDetails/videoId"
       ).execute()
 
+    for video in video_list_response['items']:
+      videos.push( video['contentDetails']['videoId'] )
+
     return uploaded_videos
+
+
+import pafy
+
+class YouTubeVideo:
+  def __init__(self,video_id):
+    self.id = video_id
+
+    self.url = 'http://www.youtube.com/watch?v=' + self.id
+
+
+    self.pafy_object = pafy.new(self.url)
+
+    self.title = self.pafy_object.title
+    self.author = self.pafy_object.author
+    self.description = self.pafy_object.description
+
+  def download(self,filepath=None):
+    self.pafy_object.getbest(preftype="mp4").download(filepath)
+
