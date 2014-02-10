@@ -8,16 +8,18 @@ class YouTubeChannel:
     self.youtube_api = build(config.YOUTUBE_API_SERVICE_NAME, config.YOUTUBE_API_VERSION, developerKey=config.YOUTUBE_API_KEY )
 
     search_response = self.youtube_api.channels().list(
-        part="contentDetails,id",
+        part="contentDetails,id,snippet",
         maxResults=10,
         forUsername=channel_username,
-        fields="items/contentDetails/relatedPlaylists/uploads,items/id"
+        fields="items/contentDetails/relatedPlaylists/uploads,items/id,items/snippet/title,items/snippet/description"
       ).execute()
 
-    self.channel_id = search_response['items'][0]['id']
-    self.channel_title = '' # TODO
-    self.channel_description = '' # TODO
-    self.uploads_playlist = search_response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+    channel = search_response['items'][0]
+
+    self.channel_id = channel['id']
+    self.channel_title = channel['snippet']['title']
+    self.channel_description = channel['snippet']['description']
+    self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
     uploaded_videos = self.youtube_api.playlistItems().list(
