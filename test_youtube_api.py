@@ -1,5 +1,5 @@
 from apiclient.discovery import build
-from youtube_channel import YouTubeChannel  
+from youtube import YouTubeChannel  
 import config
 
 def test_api_key():
