@@ -3,8 +3,7 @@ from youtube_channel import YouTubeChannel
 import config
 
 def test_api_key():
-  pass
-  #assert not config.YOUTUBE_API_KEY, "No YouTube API key specified - please add it to the config.py file" # TODO
+  assert config.YOUTUBE_API_KEY, "No YouTube API key specified - please add it to the config.py file"
 
 def test_query_channel_information():
   test_object = YouTubeChannel( "mindcracknetwork" )
