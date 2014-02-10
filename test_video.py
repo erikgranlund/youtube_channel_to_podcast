@@ -1,20 +1,18 @@
-import pafy
+from youtube import YouTubeVideo
 import os
 
-url = 'http://www.youtube.com/watch?v=SmnkYyHQqNs'
-youtube_video = pafy.new(url)
+id = 'SmnkYyHQqNs'
+test_object = YouTubeVideo( id )
 
 def test_video_download():
   test_filename = "test.mp4"
 
-
-  print youtube_video
+  print test_object.title
 
   if os.path.isfile( test_filename ):
     assert False, "Test file " + test_filename + " already exists! Unable to run the test because I don't want to overwrite an existing file"
 
-  video = youtube_video.getbest(preftype="mp4")
-  video.download(filepath=test_filename)
+  test_object.download( test_filename )
 
   assert os.path.isfile( test_filename )
 
@@ -27,6 +25,6 @@ def test_video_metadata():
   expected_description_contains = 'http://www.youtube.com/rewind'
   expected_author = 'YouTube Spotlight'
 
-  assert youtube_video.title == expected_name
-  assert youtube_video.author == expected_author
-  assert expected_description_contains in youtube_video.description
+  assert test_object.title == expected_name
+  assert test_object.author == expected_author
+  assert expected_description_contains in test_object.description
