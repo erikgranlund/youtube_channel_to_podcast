@@ -1,7 +1,6 @@
 from apiclient.discovery import build
 import config
 
-
 class YouTubeChannel:
   def __init__(self,channel_username):
     self.channel_username = channel_username
@@ -20,7 +19,7 @@ class YouTubeChannel:
     self.channel_description = '' # TODO
     self.uploads_playlist = search_response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
 
-  def get_uploaded_videos(self,max_results):
+  def get_uploaded_videos(self,max_results=20):
     uploaded_videos = self.youtube_api.playlistItems().list(
         part="id,snippet,contentDetails",
         maxResults=max_results,
