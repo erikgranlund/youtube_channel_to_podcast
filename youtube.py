@@ -32,9 +32,9 @@ class YouTubeChannel:
       ).execute()
 
     for video in video_list_response['items']:
-      videos.push( video['contentDetails']['videoId'] )
+      videos.append( YouTubeVideo( video['contentDetails']['videoId'] ) )
 
-    return uploaded_videos
+    return videos
 
 
 import pafy
