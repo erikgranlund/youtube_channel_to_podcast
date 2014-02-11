@@ -7,7 +7,7 @@ def test_api_key():
 def test_query_channel_information():
   test_object = YouTubeChannel( "mindcracknetwork" )
 
-  assert test_object.channel_id == 'UCAWQEAjn8udSFKN6D4NlqWQ', "Recieved unexpected channel ID"
+  assert test_object.id == 'UCAWQEAjn8udSFKN6D4NlqWQ', "Recieved unexpected channel ID"
   assert test_object.uploads_playlist == 'UUAWQEAjn8udSFKN6D4NlqWQ', "Recieved unexpected uploads playlist ID"
 
 def test_query_channel_videos():
