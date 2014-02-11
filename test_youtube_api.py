@@ -14,9 +14,10 @@ def test_query_channel_videos():
   test_object = YouTubeChannel( "mindcracknetwork" )
   uploaded_videos = test_object.get_uploaded_videos()
 
-  try:
-    for video in uploaded_videos['items']:
-      assert video['snippet']['title']
-      assert video['contentDetails']['videoId']
-  except KeyError:
-    assert False, "Missing id, snippet.title or contentDetails.videoId"
+  for video in uploaded_videos:
+    assert video.id
+    assert video.title
+    assert video.author
+    assert video.description
+
+    assert video.pafy_object
