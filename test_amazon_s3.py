@@ -1,17 +1,12 @@
-import boto
 import config
-import boto
+from aws import S3
 
-from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
-def get_connection():
-  connection = S3Connection( config.S3_ACCESS_KEY_ID, config.S3_SECRET_ACCESS_KEY )
-  bucket = connection.get_bucket('egranlund.podcast')
-  return bucket
+s3 = S3('egranlund.podcast')
 
 def test_s3_read_write():
-  bucket = get_connection()
+  bucket = s3.bucket
 
   test_file = "test.tst"
   test_string = "This is a test of Amazon S3 functionality"
@@ -19,17 +14,13 @@ def test_s3_read_write():
   assert bucket.get_key( test_file ) == None, "Test file already exists"
 
   # Create the test file, and make sure it's public readable
-  key = Key(bucket)
-  key.key = test_file
-  key.set_contents_from_string( test_string )
-  key.set_acl('public-read')
+  s3.upload_string( test_string, test_file )
 
   # TODO: Test public read ability
 
   # Try to find the file we just created
-  bucket = get_connection()
-  assert bucket.get_key( test_file ),"Test file doesn't exist on S3!"
+  assert s3.get_file( test_file ),"Test file doesn't exist on S3!"
 
   # Remove the test file
-  bucket.delete_key( test_file )
-  assert bucket.get_key( test_file ) == None, "Unable to delete Test file"
+  s3.delete_file( test_file )
+  assert s3.get_file( test_file ) == None, "Unable to delete Test file"
