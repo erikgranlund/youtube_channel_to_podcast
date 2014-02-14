@@ -3,7 +3,7 @@ import config
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
-class S3:
+class Bucket:
   def __init__( self, bucket_name ):
     self.connection = S3Connection( config.S3_ACCESS_KEY_ID, config.S3_SECRET_ACCESS_KEY )
     self.bucket = self.connection.get_bucket( bucket_name )
@@ -25,3 +25,11 @@ class S3:
 
   def delete_file( self, filename ):
     return self.bucket.delete_key( filename )
+
+  def get_url( self, filename ):
+    key = self.bucket.get_key( filename )
+
+    if key:
+      return key.generate_url(expires_in=-1, query_auth=False)
+    else:
+      return None
