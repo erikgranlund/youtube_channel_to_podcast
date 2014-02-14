@@ -10,7 +10,10 @@ class Bucket:
     self.connection = S3Connection()
     self.bucket = self.connection.get_bucket( bucket_name )
 
-  def upload_file( self, filename, target_filename ):
+  def upload_file( self, filename, target_filename=None ):
+    if target_filename == None:
+      target_filename = filename
+
     key = Key(self.bucket)
     key.key = target_filename
     key.set_contents_from_filename( filename )
