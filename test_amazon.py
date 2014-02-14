@@ -1,9 +1,9 @@
 import config
-from amazon import Bucket
-
-bucket = Bucket('egranlund.podcast')
+from amazon import Bucket, Transcoder
 
 def test_s3_read_write():
+  bucket = Bucket('egranlund.podcast')
+
   test_file = "test.tst"
   test_string = "This is a test of Amazon Bucket functionality"
 
@@ -20,3 +20,6 @@ def test_s3_read_write():
   # Remove the test file
   bucket.delete_file( test_file )
   assert bucket.get_file( test_file ) == None, "Unable to delete Test file"
+
+def test_elastic_transcoder():
+  transcoder = Transcoder('')

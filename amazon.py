@@ -5,7 +5,7 @@ from boto.s3.key import Key
 
 class Bucket:
   def __init__( self, bucket_name ):
-    self.connection = S3Connection( config.S3_ACCESS_KEY_ID, config.S3_SECRET_ACCESS_KEY )
+    self.connection = S3Connection( config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY )
     self.bucket = self.connection.get_bucket( bucket_name )
 
   def upload_file( self, filename, target_filename ):
@@ -33,3 +33,7 @@ class Bucket:
       return key.generate_url(expires_in=-1, query_auth=False)
     else:
       return None
+
+class Transcoder:
+  def __init__( self, meh=None ):
+    pass
