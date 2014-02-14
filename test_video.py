@@ -4,15 +4,15 @@ import os
 id = 'SmnkYyHQqNs'
 test_object = YouTubeVideo( id )
 
-def test_video_download():
-  test_filename = "test.mp4"
+def test_audio_download():
+  test_filename = "test.ogg"
 
   print test_object.title
 
   if os.path.isfile( test_filename ):
     assert False, "Test file " + test_filename + " already exists! Unable to run the test because I don't want to overwrite an existing file"
 
-  test_object.download( test_filename )
+  test_object.download_audio( test_filename )
 
   assert os.path.isfile( test_filename )
 

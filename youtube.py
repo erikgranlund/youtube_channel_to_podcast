@@ -52,6 +52,9 @@ class YouTubeVideo:
     self.author = self.pafy_object.author
     self.description = self.pafy_object.description
 
-  def download(self,filepath=None):
+  def download_audio(self,filepath=None):
+    self.pafy_object.getbestaudio(preftype="ogg").download(filepath)
+
+  def download_video(self,filepath=None):
     self.pafy_object.getbest(preftype="mp4").download(filepath)
 
