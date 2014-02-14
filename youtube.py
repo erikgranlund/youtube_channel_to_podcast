@@ -19,7 +19,7 @@ class YouTubeChannel:
     self.id = channel['id']
     self.title = channel['snippet']['title']
     self.description = channel['snippet']['description']
-    self.thumbnail = channel['snippet']['thumbnails']['default']
+    self.thumbnail = channel['snippet']['thumbnails']['default']['url']
     self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
