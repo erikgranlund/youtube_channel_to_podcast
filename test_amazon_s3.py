@@ -18,15 +18,18 @@ def test_s3_read_write():
 
   assert bucket.get_key( test_file ) == None, "Test file already exists"
 
+  # Create the test file, and make sure it's public readable
   key = Key(bucket)
   key.key = test_file
   key.set_contents_from_string( test_string )
   key.set_acl('public-read')
 
+  # TODO: Test public read ability
 
-
+  # Try to find the file we just created
   bucket = get_connection()
   assert bucket.get_key( test_file ),"Test file doesn't exist on S3!"
 
+  # Remove the test file
   bucket.delete_key( test_file )
   assert bucket.get_key( test_file ) == None, "Unable to delete Test file"
