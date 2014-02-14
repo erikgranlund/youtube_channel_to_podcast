@@ -1,3 +1,5 @@
+# Overview
+
 ## What
 
 A short script that will poll a specified YouTube channel when run and generate a iTunes compatible podcast feed for use on various iDevices
@@ -21,3 +23,7 @@ When run, the script will do the following:
 ## Other
 
 This should go saying, but I'm going to say it anyway. You probably shouldn't use this script to download and publicly host content that is not yours without the content owners permission.
+
+# Getting Started
+
+Create a .boto configuration file with your AWS credentials at ~/.boto as described on http://docs.pythonboto.org/en/latest/boto_config_tut.html
