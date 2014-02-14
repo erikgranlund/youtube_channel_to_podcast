@@ -53,8 +53,14 @@ class YouTubeVideo:
     self.description = self.pafy_object.description
 
   def download_audio(self,filepath=None):
-    self.pafy_object.getbestaudio(preftype="ogg").download(filepath)
+    if filepath == None:
+      filepath = self.id+'.m4a'
+
+    self.pafy_object.getbestaudio(preftype="m4a").download(filepath,quiet=True)
 
   def download_video(self,filepath=None):
-    self.pafy_object.getbest(preftype="mp4").download(filepath)
+    if filepath == None:
+      filepath = self.id+'.mp4'
+
+    self.pafy_object.getbest(preftype="mp4").download(filepath,quiet=True)
 
