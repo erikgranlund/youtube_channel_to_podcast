@@ -52,3 +52,6 @@ class Transcoder:
   def add_input_file( self, input_filename, output_filename ):
     # could only find this format documented here: http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/create-job.html
     self.outputs[input_filename] = { 'Key' : output_filename, 'PresetId' : config.ET_PRESET_ID } 
+
+  def list_pipelines( self ):
+    return self.connection.list_pipelines()['Pipelines']

@@ -22,4 +22,8 @@ def test_s3_read_write():
   assert bucket.get_file( test_file ) == None, "Unable to delete Test file"
 
 def test_elastic_transcoder():
-  transcoder = Transcoder('')
+  elastic_transcoder = Transcoder()
+
+  elastic_transcoder.list_pipelines()[0]['Id'] = config.ET_PIPELINE_ID
+
+  # TODO: Test job submitting?
