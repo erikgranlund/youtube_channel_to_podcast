@@ -51,6 +51,10 @@ class YouTubeVideo:
     self.title = self.pafy_object.title
     self.author = self.pafy_object.author
     self.description = self.pafy_object.description
+    self.length = self.pafy_object.length
+    self.duration = self.pafy_object.duration
+
+    self.podcast_url = None
 
   def get_audio_filename(self):
     return self.id+'.m4a'
