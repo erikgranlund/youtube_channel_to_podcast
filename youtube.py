@@ -20,6 +20,7 @@ class YouTubeChannel:
     self.title = channel['snippet']['title']
     self.description = channel['snippet']['description']
     self.thumbnail = channel['snippet']['thumbnails']['default']['url']
+    self.url = 'http://www.youtube.com/user/' + self.username
     self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
@@ -54,6 +55,7 @@ class YouTubeVideo:
     self.description = self.pafy_object.description
     self.length = self.pafy_object.length
     self.duration = self.pafy_object.duration
+    self.thumbnail = self.pafy_object.thumb
 
     self.podcast_url = None
 
