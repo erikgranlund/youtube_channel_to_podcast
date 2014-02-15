@@ -1,5 +1,5 @@
-{# Based off example hosted here: https://www.apple.com/itunes/podcasts/specs.html#example #}
 <?xml version="1.0" encoding="UTF-8"?>
+{# Based off example hosted here: https://www.apple.com/itunes/podcasts/specs.html#example #}
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
     <title>{{ channel.title }}</title>
@@ -9,20 +9,22 @@
     <itunes:subtitle>{{ channel.description }}</itunes:subtitle>
     <itunes:author>{{ channel.title }}</itunes:author>
     <itunes:summary>{{ channel.description }}</itunes:summary>
-    <description>{{ channel.description }}</description>
     <itunes:image href="{{ channel.thumbnail }}" />
-    {# for video in videos #}
+    {% for video in videos %}
     <item>
       <title>{{ video.title }}</title>
       <itunes:author>{{ video.author }}</itunes:author>
-      <itunes:subtitle>{{ video.description }}</itunes:subtitle>
-      <itunes:summary>{{ video.description }}</itunes:summary>
-      <itunes:image href="{{ video.thumbnail }}" />
-      <enclosure url="{{ video.podcast_url }}" length="{# TODO #}" type="audio/x-m4a" /> <!-- length="8727310" type="audio/x-m4a" /> -->
+      <itunes:subtitle>
+        {{ video.description[:10] }}
+      </itunes:subtitle>
+      <itunes:summary>
+        {{ video.description }}
+      </itunes:summary>
+      <enclosure url="{{ video.podcast_url }}" length="{{ video.size }}" type="audio/mpeg" />
       <guid>{{ video.podcast_url }}</guid>
-      <pubDate>{{ video.date }}</pubDate>
-      <itunes:duration>{# TODO #}</itunes:duration>
+      <pubDate>Tue, 21 Jan 2014 22:08:01 GMT</pubDate>
+      <itunes:explicit>no</itunes:explicit>
     </item>
-    {# end for #}
+    {% endfor %}
   </channel>
 </rss>
