@@ -35,7 +35,7 @@ class Bucket:
     key = self.bucket.get_key( filename )
 
     if key:
-      return key.generate_url(expires_in=-1, query_auth=False)
+      return key.generate_url(expires_in=-1, query_auth=False, force_http=True)
     else:
       return None
 
