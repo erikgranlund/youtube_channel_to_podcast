@@ -39,6 +39,14 @@ class Bucket:
     else:
       return None
 
+  def get_size( self, filename ):
+    key = self.bucket.get_key( filename )
+
+    if key:
+      return key.size
+    else:
+      return None
+
 class Transcoder:
   def __init__( self ):
     self.connection = boto.elastictranscoder.connect_to_region( config.ET_REGION )
