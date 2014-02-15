@@ -2,7 +2,7 @@
 
 ## What
 
-A short script that will poll a specified YouTube channel when run and generate a iTunes compatible podcast feed for use on various iDevices
+A short script that will poll a specified YouTube channel when run and generate a iTunes compatible podcast feed for use on various iDevices.
 
 ## Why
 
@@ -10,20 +10,29 @@ I do a lot of walking and I like to be able download a ton of content to my iPho
 
 Originally wrote this to give me a podcast feed of the Mindcrack Network (http://www.youtube.com/user/MindCrackNetwork).
 
+It is designed to run as a nightly cron job on a space and processor resource limited Raspberry Pi. To offset these limits I used Amazon S3 for storage and Amazon Elastic Transcoder to get it in the format that the iPhone podcasts app expects. However, I tried to make everything as modular as possible, so anyone should be able to repurpose this to use local resources pretty easily.
+
 ## How
 
 When run, the script will do the following:
 
 1. Visit the YouTube channel specified
-2. Check for new videos (goes back to the past 10)
-3. Download an MP3 version of the video (uses the vid2mp3 module)
-4. (optional) Upload the MP3 file to Amazon S3 (this was written to be run on a Raspberry Pi where space is at a premium)
-5. Spits out a podcast-able (at with iTunes) RSS file which can be copied to a website accessible from whatever iDevice you want.
+2. Check for new videos (goes back 10 by default, but this can be changed)
+3. Download an audio-only version of the file (mp4)
+4. Upload the file to Amazon S3
+5. Transcode the file into an MP3 using Amazon Elastic Transcoder (the iPhone doesn't like the m4a format off direct off of YouTube)
+6. Spits out a podcast-able (at with iTunes) RSS file and uploads it to Amazon S3
 
-## Other
-
-This should go saying, but I'm going to say it anyway. You probably shouldn't use this script to download and publicly host content that is not yours without the content owners permission.
+By default, media files are named with their video id (x3svDHLKulU.mp3) and outputted RSS feeds are named by their channel name (mindcracknetwork.xml). This allows you to use this script multiple times if you want more than one channel in podcast format.
 
 # Getting Started
 
-Create a .boto configuration file with your AWS credentials at ~/.boto as described on http://docs.pythonboto.org/en/latest/boto_config_tut.html
+## Setting up your environment
+
+I used virtualenv for all of this. All you need to do is spin up a virtual environment, and then run:
+
+> pip install -r requirements.txt 
+
+You will also need to fill out the config\_template.py file and name it config.py and create a .boto configuration file.
+
+The .boto configuration file is documented at: http://docs.pythonboto.org/en/latest/boto\_config\_tut.html
