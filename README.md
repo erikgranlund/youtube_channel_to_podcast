@@ -21,7 +21,7 @@ When run, the script will do the following:
 3. Download an audio-only version of the file (mp4)
 4. Upload the file to Amazon S3
 5. Transcode the file into an MP3 using Amazon Elastic Transcoder (the iPhone doesn't like the m4a format off direct off of YouTube)
-6. Spits out a podcast-able (at with iTunes) RSS file and uploads it to Amazon S3
+6. Spit out a podcast-able (at with iTunes) RSS file and uploads it to Amazon S3
 
 By default, media files are named with their video id (x3svDHLKulU.mp3) and outputted RSS feeds are named by their channel name (mindcracknetwork.xml). This allows you to use this script multiple times if you want more than one channel in podcast format.
 
@@ -33,6 +33,6 @@ I used virtualenv for all of this. All you need to do is spin up a virtual envir
 
 > pip install -r requirements.txt 
 
-You will also need to fill out the config\_template.py file and name it config.py and create a .boto configuration file.
+You will also need to fill out the config\_template.py file, rename it config.py and create a .boto configuration file.
 
-The .boto configuration file is documented at: http://docs.pythonboto.org/en/latest/boto\_config\_tut.html
+The .boto configuration file is documented at: http://docs.pythonboto.org/en/latest/boto_config_tut.html
