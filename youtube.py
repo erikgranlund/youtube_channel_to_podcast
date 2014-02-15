@@ -58,6 +58,7 @@ class YouTubeVideo:
     self.thumbnail = self.pafy_object.thumb
 
     self.podcast_url = None
+    self.size = None
 
   def get_audio_filename(self):
     return self.id+'.m4a'
