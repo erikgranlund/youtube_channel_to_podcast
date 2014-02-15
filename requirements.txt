@@ -1,0 +1,5 @@
+Pafy==0.3.33
+google-api-python-client==1.2
+httplib2==0.8
+py==1.4.20
+pytest==2.5.2
