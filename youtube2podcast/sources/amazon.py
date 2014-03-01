@@ -25,6 +25,14 @@ class Bucket:
     key.set_contents_from_string( string )
     key.set_acl('public-read')
 
+  def list_files( self, prefix=None ):
+    files = []
+
+    for item in self.bucket.list(prefix):
+      files.append( item.key )
+
+    return files
+
   def get_file( self, filename ):
     return self.bucket.get_key( filename )
 
