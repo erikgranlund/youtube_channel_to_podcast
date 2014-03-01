@@ -1,11 +1,11 @@
 from apiclient.discovery import build
-import config
+import youtube2podcast.config
 
 class YouTubeChannel:
   def __init__(self,username):
     self.username = username
 
-    self.youtube_api = build(config.YOUTUBE_API_SERVICE_NAME, config.YOUTUBE_API_VERSION, developerKey=config.YOUTUBE_API_KEY )
+    self.youtube_api = build(youtube2podcast.config.YOUTUBE_API_SERVICE_NAME, youtube2podcast.config.YOUTUBE_API_VERSION, developerKey=youtube2podcast.config.YOUTUBE_API_KEY )
 
     search_response = self.youtube_api.channels().list(
         part="contentDetails,id,snippet",

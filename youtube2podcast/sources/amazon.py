@@ -1,4 +1,4 @@
-import config
+import youtube2podcast.config
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -49,7 +49,7 @@ class Bucket:
 
 class Transcoder:
   def __init__( self ):
-    self.connection = boto.elastictranscoder.connect_to_region( config.ET_REGION )
+    self.connection = boto.elastictranscoder.connect_to_region( youtube2podcast.config.ET_REGION )
     self.outputs = {}
 
   def convert_to_mp3( self, input_filename=None, output_filename=None ):
@@ -57,12 +57,12 @@ class Transcoder:
       self.add_input_file( input_filename, output_filename )
 
     for input_file in self.outputs:
-      self.connection.create_job( config.ET_PIPELINE_ID, input_name = { 'Key' : input_file }, outputs = [self.outputs[input_file]] )
+      self.connection.create_job( youtube2podcast.config.ET_PIPELINE_ID, input_name = { 'Key' : input_file }, outputs = [self.outputs[input_file]] )
     
 
   def add_input_file( self, input_filename, output_filename ):
     # could only find this format documented here: http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/create-job.html
-    self.outputs[input_filename] = { 'Key' : output_filename, 'PresetId' : config.ET_PRESET_ID } 
+    self.outputs[input_filename] = { 'Key' : output_filename, 'PresetId' : youtube2podcast.config.ET_PRESET_ID } 
 
   def list_pipelines( self ):
     return self.connection.list_pipelines()['Pipelines']
