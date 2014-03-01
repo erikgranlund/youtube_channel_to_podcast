@@ -1,6 +1,6 @@
 import os
-from youtube import YouTubeChannel
-from amazon import Bucket, Transcoder
+from youtube2podcast.platforms.youtube import YouTubeChannel
+from youtube2podcast.platforms.amazon import Bucket, Transcoder
 
 import jinja2
 

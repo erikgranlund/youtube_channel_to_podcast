@@ -1,5 +1,5 @@
 import config
-from amazon import Bucket, Transcoder
+from youtube2podcast.sources.amazon import Bucket, Transcoder
 
 def test_s3_read_write():
   bucket = Bucket('egranlund.podcast')
