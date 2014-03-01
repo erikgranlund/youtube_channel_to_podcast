@@ -22,7 +22,7 @@
       </itunes:summary>
       <enclosure url="{{ video.podcast_url }}" length="{{ video.size }}" type="audio/mpeg" />
       <guid>{{ video.podcast_url }}</guid>
-      <pubDate>Tue, 21 Jan 2014 22:08:01 GMT</pubDate>
+      <pubDate>{{ video.formatted_date }}</pubDate>
       <itunes:explicit>no</itunes:explicit>
     </item>
     {% endfor %}

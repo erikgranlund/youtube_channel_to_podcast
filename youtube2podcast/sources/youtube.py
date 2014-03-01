@@ -1,5 +1,6 @@
 from apiclient.discovery import build
 import youtube2podcast.config
+import datetime
 
 class YouTubeChannel:
   def __init__(self,username):
@@ -56,6 +57,8 @@ class YouTubeVideo:
     self.length = self.pafy_object.length
     self.duration = self.pafy_object.duration
     self.thumbnail = self.pafy_object.thumb
+    self.date = datetime.datetime.strptime( self.pafy_object.published, '%Y-%m-%d %H:%M:%S' )
+    self.formatted_date = self.date.strftime( '%a, %d %b %Y %H:%M:%S %Z' )
 
     self.podcast_url = None
     self.size = None

@@ -8,12 +8,10 @@
       <title>{{ video.title }}</title>
       <enclosure url="{{ video.podcast_url }}" length="{{ video.size }}" type="audio/mpeg" />
       <itunes:author>{{ video.author }}</itunes:author>
-      <itunes:subtitle>
-        {{ video.description[:10] }}
-      </itunes:subtitle>
       <itunes:summary>
         {{ video.description }}
       </itunes:summary>
+      <pubDate>{{ video.formatted_date }}</pubDate>
     </item>
     {% endfor %}
   </channel>
