@@ -12,17 +12,17 @@
     <itunes:image href="{{ channel.thumbnail }}" />
     {% for video in videos %}
     <item>
-      <title>{{ video.title }}</title>
-      <itunes:author>{{ video.author }}</itunes:author>
+      <title>{{ videos[video].title }}</title>
+      <itunes:author>{{ videos[video].author }}</itunes:author>
       <itunes:subtitle>
-        {{ video.description[:10] }}
+        {{ videos[video].description[:10] }}
       </itunes:subtitle>
       <itunes:summary>
-        {{ video.description }}
+        {{ videos[video].description }}
       </itunes:summary>
-      <enclosure url="{{ video.podcast_url }}" length="{{ video.size }}" type="audio/mpeg" />
-      <guid>{{ video.podcast_url }}</guid>
-      <pubDate>{{ video.formatted_date }}</pubDate>
+      <enclosure url="{{ videos[video].podcast_url }}" length="{{ videos[video].size }}" type="audio/mpeg" />
+      <guid>{{ videos[video].podcast_url }}</guid>
+      <pubDate>{{ videos[video].formatted_date }}</pubDate>
       <itunes:explicit>no</itunes:explicit>
     </item>
     {% endfor %}

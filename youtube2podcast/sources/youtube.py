@@ -25,7 +25,7 @@ class YouTubeChannel:
     self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
-    videos = []
+    videos = {}
 
     video_list_response = self.youtube_api.playlistItems().list(
         part="id,snippet,contentDetails",
@@ -35,7 +35,8 @@ class YouTubeChannel:
       ).execute()
 
     for video in video_list_response['items']:
-      videos.append( YouTubeVideo( video['contentDetails']['videoId'] ) )
+      video = YouTubeVideo( video['contentDetails']['videoId'] )
+      videos[ video.id ] = video
 
     return videos
 
