@@ -4,38 +4,62 @@ from youtube2podcast.sources.amazon import Bucket, Transcoder
 
 import jinja2
 
+import pickle
+
 debug = False
 
+# --
 file_extension = 'mp3'
 youtube_channel = 'mindcracknetwork'
+# --
 
 s3_bucket = Bucket('egranlund.podcast')
 elastic_transcoder = Transcoder()
 
 channel = YouTubeChannel( youtube_channel )
 
+# Pickle input stuff
+pickle_file = open( 'data.pkl', 'rb' )
+previous_videos = pickle.load( pickle_file )
+pickle_file.close()
+
+# Grab and iterate through all of the videos on the channel
 videos = channel.get_uploaded_videos(5)
 
 for video in videos:
-  try:
-    filename = video.get_audio_filename()
+  filename = videos[video].get_audio_filename()
 
-    if debug == False:
-      video.download_audio( filename )
-      s3_bucket.upload_file( filename )
-      elastic_transcoder.convert_to_mp3( filename, filename[:-3] + file_extension )
-      os.unlink( filename )
- 
-    video.date = 'Wed, 6 Jul 2005 13:00:00 PDT'
-    video.size = s3_bucket.get_size( filename )
-    video.podcast_url = s3_bucket.get_url( filename )[:-3] + file_extension
+  if videos[video].id in previous_videos:
+    print "Not uploading " + videos[video].id + " video already exists"
+    videos[video] = previous_videos[video]
+    del previous_videos[video]
 
-  except AttributeError:
-    print "Unable to download '" + video.title + "'"
+  else:
+    try:
+      if debug == False:
+        videos[video].download_audio( filename )
+        s3_bucket.upload_file( filename )
+        elastic_transcoder.convert_to_mp3( filename, filename[:-3] + file_extension )
+        os.unlink( filename )
+    except AttributeError:
+      print "Unable to download '" + videos[video].title + "'"
+    else:
+      videos[video].size = s3_bucket.get_size( filename[:-3] + file_extension )
+      videos[video].podcast_url = s3_bucket.get_url( filename )[:-3] + file_extension
+
+  # Delete any extra m4a files
+  #for existing_file in s3_bucket.list_files( filename[:-3] ):
+  #  if existing_file and existing_file[-3:] != file_extension and debug == False:
+  #    s3_bucket.delete_file( existing_file )
+
+# Dump the pickle file
+output = open( 'data.pkl', 'wb' )
+pickle.dump( videos, output )
+output.close()
 
 # Render the podcast
-templateLoader = jinja2.FileSystemLoader('.')
-env = jinja2.Environment( loader=templateLoader )
+package_loader=jinja2.PackageLoader('youtube2podcast', 'templates')
+env = jinja2.Environment( loader=package_loader )
 template = env.get_template( 'minimal.xml' )
 
 podcast_rss = template.render( { 'channel' : channel, 'videos' : videos } )
