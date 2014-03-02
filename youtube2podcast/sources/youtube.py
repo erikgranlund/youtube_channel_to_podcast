@@ -1,11 +1,12 @@
 from apiclient.discovery import build
-import config
+import youtube2podcast.config
+import datetime
 
 class YouTubeChannel:
   def __init__(self,username):
     self.username = username
 
-    self.youtube_api = build(config.YOUTUBE_API_SERVICE_NAME, config.YOUTUBE_API_VERSION, developerKey=config.YOUTUBE_API_KEY )
+    self.youtube_api = build(youtube2podcast.config.YOUTUBE_API_SERVICE_NAME, youtube2podcast.config.YOUTUBE_API_VERSION, developerKey=youtube2podcast.config.YOUTUBE_API_KEY )
 
     search_response = self.youtube_api.channels().list(
         part="contentDetails,id,snippet",
@@ -24,7 +25,7 @@ class YouTubeChannel:
     self.uploads_playlist = channel['contentDetails']['relatedPlaylists']['uploads']
 
   def get_uploaded_videos(self,max_results=20):
-    videos = []
+    videos = {}
 
     video_list_response = self.youtube_api.playlistItems().list(
         part="id,snippet,contentDetails",
@@ -34,7 +35,8 @@ class YouTubeChannel:
       ).execute()
 
     for video in video_list_response['items']:
-      videos.append( YouTubeVideo( video['contentDetails']['videoId'] ) )
+      video = YouTubeVideo( video['contentDetails']['videoId'] )
+      videos[ video.id ] = video
 
     return videos
 
@@ -56,6 +58,8 @@ class YouTubeVideo:
     self.length = self.pafy_object.length
     self.duration = self.pafy_object.duration
     self.thumbnail = self.pafy_object.thumb
+    self.date = datetime.datetime.strptime( self.pafy_object.published, '%Y-%m-%d %H:%M:%S' )
+    self.formatted_date = self.date.strftime( '%a, %d %b %Y %H:%M:%S %Z' )
 
     self.podcast_url = None
     self.size = None

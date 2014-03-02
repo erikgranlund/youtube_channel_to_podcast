@@ -1,4 +1,4 @@
-from youtube import YouTubeVideo
+from youtube2podcast.sources.youtube import YouTubeVideo
 import os
 
 id = 'SmnkYyHQqNs'

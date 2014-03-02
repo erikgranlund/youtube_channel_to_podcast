@@ -1,9 +1,10 @@
 Jinja2==2.7.2
 MarkupSafe==0.18
-Pafy==0.3.33
-argparse==1.2.1
-boto==2.25.0
+Pafy==0.3.38
+argparse
+boto==2.26.0
 google-api-python-client==1.2
 httplib2==0.8
 py==1.4.20
 pytest==2.5.2
+wsgiref==0.1.2

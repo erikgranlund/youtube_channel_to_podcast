@@ -1,4 +1,4 @@
-from youtube import YouTubeChannel  
+from youtube2podcast.sources.youtube import YouTubeChannel
 import config
 
 def test_api_key():

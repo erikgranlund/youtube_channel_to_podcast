@@ -5,15 +5,13 @@
     <link>{{ channel.url }}</link>
     {% for video in videos %}
     <item>
-      <title>{{ video.title }}</title>
-      <enclosure url="{{ video.podcast_url }}" length="{{ video.size }}" type="audio/mpeg" />
-      <itunes:author>{{ video.author }}</itunes:author>
-      <itunes:subtitle>
-        {{ video.description[:10] }}
-      </itunes:subtitle>
+      <title>{{ videos[video].title }}</title>
+      <enclosure url="{{ videos[video].podcast_url }}" length="{{ videos[video].size }}" type="audio/mpeg" />
+      <itunes:author>{{ videos[video].author }}</itunes:author>
       <itunes:summary>
-        {{ video.description }}
+        {{ videos[video].description }}
       </itunes:summary>
+      <pubDate>{{ videos[video].formatted_date }}</pubDate>
     </item>
     {% endfor %}
   </channel>
