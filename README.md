@@ -29,10 +29,16 @@ By default, media files are named with their video id (x3svDHLKulU.mp3) and outp
 
 ## Setting up your environment
 
-I used virtualenv for all of this. All you need to do is spin up a virtual environment, and then run:
+Requirements are handled using [virtualenv](http://www.virtualenv.org/en/latest/).
+
+All you need to do is create a virtual environment, and then run:
 
 > pip install -r requirements.txt 
 
-You will also need to fill out the config\_template.py file, rename it config.py and create a .boto configuration file.
+Configuring the downloader itself is done by populating the config\_template.py file with your API keys and such, rename it config.py.
+
+You also need to create a .boto configuration file which is used by the Amazon AWS parts of this script.
 
 The .boto configuration file is documented at: http://docs.pythonboto.org/en/latest/boto_config_tut.html
+
+This was written using Python 2.7.

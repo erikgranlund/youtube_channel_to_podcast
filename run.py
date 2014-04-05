@@ -1,4 +1,5 @@
 import os
+import youtube2podcast.config
 from youtube2podcast.sources.youtube import YouTubeChannel
 from youtube2podcast.sources.amazon import Bucket, Transcoder
 
@@ -13,7 +14,7 @@ file_extension = 'mp3'
 youtube_channel = 'mindcracknetwork'
 # --
 
-s3_bucket = Bucket('egranlund.podcast')
+s3_bucket = Bucket( youtube2podcast.config.S3_BUCKET_NAME )
 elastic_transcoder = Transcoder()
 
 channel = YouTubeChannel( youtube_channel )
