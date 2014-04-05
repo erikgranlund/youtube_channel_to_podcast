@@ -35,10 +35,8 @@ All you need to do is create a virtual environment, and then run:
 
 > pip install -r requirements.txt 
 
-Configuring the downloader itself is done by populating the config\_template.py file with your API keys and such, rename it config.py.
+You configure the downloader by populating the config\_template.py file with your API keys and such and renaming it config.py.
 
-You also need to create a .boto configuration file which is used by the Amazon AWS parts of this script.
+You also need to create a [.boto configuration file](http://docs.pythonboto.org/en/latest/boto_config_tut.html) which is used by the Amazon AWS parts of this script.
 
-The .boto configuration file is documented at: http://docs.pythonboto.org/en/latest/boto_config_tut.html
-
-This was written using Python 2.7.
+This was written using Python 2.7. No idea if it will work under 3.x versions of Python.
