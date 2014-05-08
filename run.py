@@ -7,6 +7,10 @@ import jinja2
 
 import pickle
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 debug = False
 
 # --
